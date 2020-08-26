@@ -1,5 +1,9 @@
 # api_yamdb
-api_yamdb
+Клонируйте себе репозиторий, затем в каталоге проекта создайте свою ветку и перейдите на нее
+
+git checkout -b develop 
+
+и можно приступать :)
 
 Тут добавлены 3 приложения:
 
@@ -12,6 +16,13 @@ api_yamdb
 3. pip install -r requirements.txt
 4. python manage.py migrate
 5. python manage.py createsuperuser
+
+В настройках приложения уже добавлены JWTAuthentication, DjangoFilterBackend и PageNumberPagination 
+
+По умолчанию доступ только для авторизованных пользователей
+
+В модуле users есть файлик rbac.py в нем полезные классы permission AnyoneCanSeeListAdminCanEdit - подойдет для artwork и AnyoneCanSeeAdminModerAuthorCanEdit - для review
+
 -------------------------------------------
 
 ###User
