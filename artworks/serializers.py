@@ -6,21 +6,8 @@ from .validators import year_validator
 
 
 class CustomField(serializers.SlugRelatedField):
-    def to_representation(self, value):
-        slug = super(CustomField, self).to_representation(value)
-        try:
-           item = self.get_queryset().get(slug=slug)
-           serializer = CategorySerializer(item)
-           return serializer.data
-        except Category.DoesNotExist:
-           return None
-
-    def get_choices(self, cutoff=None):
-        queryset = self.get_queryset()
-        if queryset is None:
-            return {}
-
-        return OrderedDict([(item.id, str(item)) for item in queryset])
+    def to_representation(self, instance):
+        return {'name': instance.name, 'slug': instance.slug}
 
 
 class CategorySerializer(serializers.ModelSerializer):

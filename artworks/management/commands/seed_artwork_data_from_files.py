@@ -26,7 +26,7 @@ class Command(BaseCommand):
                 'serializer_class': GenreSerializer
             },
             {
-                'filename': 'titles_utf8.csv',
+                'filename': 'titles_mod.csv',
                 'fields': ['id', 'name', 'year', 'category'],
                 'serializer_class': TitleSerializer
             }
@@ -38,7 +38,9 @@ class Command(BaseCommand):
             )
             fields = record['fields']
             serializer_class = record['serializer_class']
-            with codecs.open(filename, encoding='utf-8', errors='replace') as csvfile:
+            with codecs.open(filename,
+                             encoding='utf-8',
+                             errors='replace') as csvfile:
                 reader = csv.reader(csvfile, delimiter=',', quotechar='|')
                 next(reader)
                 for row in reader:
