@@ -7,12 +7,12 @@ User = get_user_model()
 
 class Category(models.Model):
     name = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(max_length=50, unique=True)
 
 
 class Genre(models.Model):
     name = models.CharField(max_length=200, unique=True)
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(max_length=50, unique=True)
 
 
 class Title(models.Model):

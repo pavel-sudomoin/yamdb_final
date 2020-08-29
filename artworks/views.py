@@ -20,19 +20,19 @@ class BaseCreateDeleteListViewSet(
 class CategoryViewSet(BaseCreateDeleteListViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    lookup_field = 'slug'
     filter_backends = (filters.SearchFilter,)
     search_fields = ('=name',)
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          AnyoneCanSeeListAdminCanEdit)
+    permission_classes = (AnyoneCanSeeListAdminCanEdit,)
 
 
 class GenreViewSet(BaseCreateDeleteListViewSet):
     queryset = Genre.objects.all()
     serializer_class = GenreSerializer
+    lookup_field = 'slug'
     filter_backends = (filters.SearchFilter,)
     search_fields = ('=name',)
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,
-                          AnyoneCanSeeListAdminCanEdit)
+    permission_classes = (AnyoneCanSeeListAdminCanEdit,)
 
 
 class TitleViewSet(viewsets.ModelViewSet):

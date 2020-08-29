@@ -5,11 +5,11 @@ from .models import Category, Genre, Title
 from .validators import year_validator
 
 
-class CustomField(serializers.PrimaryKeyRelatedField):
+class CustomField(serializers.SlugRelatedField):
     def to_representation(self, value):
-        pk = super(CustomField, self).to_representation(value)
+        slug = super(CustomField, self).to_representation(value)
         try:
-           item = self.get_queryset().get(pk=pk)
+           item = self.get_queryset().get(slug=slug)
            serializer = CategorySerializer(item)
            return serializer.data
         except Category.DoesNotExist:
@@ -25,7 +25,7 @@ class CustomField(serializers.PrimaryKeyRelatedField):
 
 class CategorySerializer(serializers.ModelSerializer):
     class Meta:
-        fields = ('id', 'name', 'slug')
+        fields = ('name', 'slug')
         model = Category
 
 
@@ -40,10 +40,12 @@ class TitleSerializer(serializers.ModelSerializer):
     genre = CustomField(
         many=True,
         required=False,
+        slug_field='slug',
         queryset=Genre.objects.all()
     )
     category = CustomField(
         required=False,
+        slug_field='slug',
         queryset=Category.objects.all()
     )
     year = serializers.IntegerField(
