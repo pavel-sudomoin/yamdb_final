@@ -30,4 +30,4 @@ Unidecode==0.4.21
 urllib3==1.25.9
 wcwidth==0.1.9
 zipp==3.1.0
-
+pytils==0.3
