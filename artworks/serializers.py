@@ -1,4 +1,4 @@
-from rest_framework import serializers
+from rest_framework import serializers, validators
 from django.db.models import Avg
 
 from .models import Category, Genre, Title
@@ -11,12 +11,26 @@ class CustomField(serializers.SlugRelatedField):
 
 
 class CategorySerializer(serializers.ModelSerializer):
+    slug = serializers.SlugField(
+        required=False,
+        validators=[
+            validators.UniqueValidator(queryset=Category.objects.all())
+        ]
+    )
+
     class Meta:
         fields = ('name', 'slug')
         model = Category
 
 
 class GenreSerializer(serializers.ModelSerializer):
+    slug = serializers.SlugField(
+        required=False,
+        validators=[
+            validators.UniqueValidator(queryset=Genre.objects.all())
+        ]
+    )
+
     class Meta:
         fields = ('name', 'slug')
         model = Genre
@@ -42,7 +56,7 @@ class TitleSerializer(serializers.ModelSerializer):
 
     def get_rating(self, obj):
         return 2
-        #return obj.review.all().aggregate(rating=Avg('score'))['rating']
+        #return obj.reviews.all().aggregate(rating=Avg('score'))['rating']
 
     class Meta:
         fields = '__all__'
