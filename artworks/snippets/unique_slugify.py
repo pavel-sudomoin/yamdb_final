@@ -1,5 +1,5 @@
 import re
-from pytils.translit import slugify
+from slugify import slugify
 
 
 def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
