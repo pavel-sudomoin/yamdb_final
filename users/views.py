@@ -72,3 +72,4 @@ class GenerateTokenByConfCodeAndEmail(APIView):
         return Response(
             {'token': str(refresh.access_token)}, status=status.HTTP_200_OK
         )
+

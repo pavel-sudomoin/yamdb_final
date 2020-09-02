@@ -27,3 +27,4 @@ class AnyoneCanSeeAdminModerAuthorCanEdit(BasePermission):
             or request.user.is_admin
             or obj.author == request.user
         )
+
