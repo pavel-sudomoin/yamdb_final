@@ -10,6 +10,7 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from .rbac import AdminUserCanDoAnything
 from .serializers import UserSerializerForAdmin, UserSerializerForUsers
 
 User = get_user_model()
@@ -29,7 +30,7 @@ class CabinetView(generics.RetrieveUpdateAPIView):
 
 class UsersView(viewsets.ModelViewSet):
     serializer_class = UserSerializerForAdmin
-    permission_classes = (permissions.IsAdminUser,)
+    permission_classes = (AdminUserCanDoAnything,)
     queryset = User.objects.all()
     lookup_field = 'username'
 
@@ -72,4 +73,3 @@ class GenerateTokenByConfCodeAndEmail(APIView):
         return Response(
             {'token': str(refresh.access_token)}, status=status.HTTP_200_OK
         )
-
