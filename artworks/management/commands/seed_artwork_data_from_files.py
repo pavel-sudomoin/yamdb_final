@@ -18,18 +18,18 @@ class Command(BaseCommand):
             {
                 'filename': 'category.csv',
                 'fields': ['id', 'name', 'slug'],
-                'serializer_class': CategorySerializer
+                'serializer_class': CategorySerializer,
             },
             {
                 'filename': 'genre.csv',
                 'fields': ['id', 'name', 'slug'],
-                'serializer_class': GenreSerializer
+                'serializer_class': GenreSerializer,
             },
             {
                 'filename': 'titles_mod.csv',
                 'fields': ['id', 'name', 'year', 'category'],
-                'serializer_class': TitleSerializer
-            }
+                'serializer_class': TitleSerializer,
+            },
         ]
         for record in artwork_data:
             print(f'загружаются данные из файла {record["filename"]}')
@@ -38,9 +38,9 @@ class Command(BaseCommand):
             )
             fields = record['fields']
             serializer_class = record['serializer_class']
-            with codecs.open(filename,
-                             encoding='utf-8',
-                             errors='replace') as csvfile:
+            with codecs.open(
+                filename, encoding='utf-8', errors='replace'
+            ) as csvfile:
                 reader = csv.reader(csvfile, delimiter=',', quotechar='|')
                 next(reader)
                 for row in reader:

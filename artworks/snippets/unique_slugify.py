@@ -2,8 +2,9 @@ import re
 from slugify import slugify
 
 
-def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
-                   slug_separator='-'):
+def unique_slugify(
+    instance, value, slug_field_name='slug', queryset=None, slug_separator='-'
+):
     """
     Calculates and stores a unique slug of ``value`` for an instance.
 
@@ -39,7 +40,7 @@ def unique_slugify(instance, value, slug_field_name='slug', queryset=None,
         slug = original_slug
         end = '%s%s' % (slug_separator, next)
         if slug_len and len(slug) + len(end) > slug_len:
-            slug = slug[:slug_len-len(end)]
+            slug = slug[: slug_len - len(end)]
             slug = _slug_strip(slug, slug_separator)
         slug = '%s%s' % (slug, end)
         next += 1

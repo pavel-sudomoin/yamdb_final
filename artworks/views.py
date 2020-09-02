@@ -12,7 +12,7 @@ class BaseCreateDeleteListViewSet(
     mixins.DestroyModelMixin,
     mixins.CreateModelMixin,
     mixins.ListModelMixin,
-    viewsets.GenericViewSet
+    viewsets.GenericViewSet,
 ):
     pass
 

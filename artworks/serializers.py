@@ -15,7 +15,7 @@ class CategorySerializer(serializers.ModelSerializer):
         required=False,
         validators=[
             validators.UniqueValidator(queryset=Category.objects.all())
-        ]
+        ],
     )
 
     class Meta:
@@ -26,9 +26,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class GenreSerializer(serializers.ModelSerializer):
     slug = serializers.SlugField(
         required=False,
-        validators=[
-            validators.UniqueValidator(queryset=Genre.objects.all())
-        ]
+        validators=[validators.UniqueValidator(queryset=Genre.objects.all())],
     )
 
     class Meta:
@@ -42,16 +40,13 @@ class TitleSerializer(serializers.ModelSerializer):
         many=True,
         required=False,
         slug_field='slug',
-        queryset=Genre.objects.all()
+        queryset=Genre.objects.all(),
     )
     category = CustomField(
-        required=False,
-        slug_field='slug',
-        queryset=Category.objects.all()
+        required=False, slug_field='slug', queryset=Category.objects.all()
     )
     year = serializers.IntegerField(
-        required=False,
-        validators=[year_validator]
+        required=False, validators=[year_validator]
     )
 
     def get_rating(self, obj):

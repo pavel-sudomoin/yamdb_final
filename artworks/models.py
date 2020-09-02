@@ -31,16 +31,13 @@ class Title(models.Model):
     name = models.CharField(max_length=200)
     year = models.IntegerField(blank=True, null=True)
     description = models.CharField(max_length=200, blank=True, null=True)
-    genre = models.ManyToManyField(
-        Genre,
-        related_name="titles",
-        blank=True
-    )
+    genre = models.ManyToManyField(Genre, related_name='titles', blank=True)
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
-        related_name="titles",
-        blank=True, null=True
+        related_name='titles',
+        blank=True,
+        null=True,
     )
 
     class Meta:
