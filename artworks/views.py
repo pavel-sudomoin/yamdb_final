@@ -6,6 +6,7 @@ from .serializers import CategorySerializer, GenreSerializer
 from .serializers import TitleSerializer
 from users.rbac import AnyoneCanSeeListAdminCanEdit
 from .filters import TitleFilter
+from django.db.models import Avg
 
 
 class BaseCreateDeleteListViewSet(
@@ -36,7 +37,7 @@ class GenreViewSet(BaseCreateDeleteListViewSet):
 
 
 class TitleViewSet(viewsets.ModelViewSet):
-    queryset = Title.objects.all()
+    queryset = Title.objects.annotate(rating=Avg('reviews__score'))
     serializer_class = TitleSerializer
     filter_backends = (DjangoFilterBackend,)
     filterset_class = TitleFilter
