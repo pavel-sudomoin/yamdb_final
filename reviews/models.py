@@ -29,6 +29,10 @@ class Review(models.Model):
                 name=_('Only one review allowed per title'),
             ),
         ]
+        ordering = ('-pub_date',)
+
+    def __str__(self):
+        return f'{self.title} - {self.author} - {self.pub_date.strftime("%c")}'
 
 
 class Comment(models.Model):
@@ -40,3 +44,9 @@ class Comment(models.Model):
         User, on_delete=models.CASCADE, related_name='comments'
     )
     pub_date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ('-pub_date',)
+
+    def __str__(self):
+        return f'{self.review} - {self.author} - {self.pub_date.strftime("%c")}'
