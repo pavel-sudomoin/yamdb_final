@@ -4,7 +4,7 @@ from rest_framework import viewsets, serializers
 from rest_framework.pagination import PageNumberPagination
 from .models import Review, Comment, Title
 from .serializers import ReviewSerializer, CommentSerializer
-from users.rbac import (
+from users.permissions import (
     AnyoneCanSeeAdminModerAuthorCanEdit,
     AnyoneCanSeeListAdminCanEdit,
 )
