@@ -1,5 +1,4 @@
 from rest_framework import serializers, validators
-from django.db.models import Avg
 
 from .models import Category, Genre, Title
 from .validators import year_validator
@@ -35,7 +34,7 @@ class GenreSerializer(serializers.ModelSerializer):
 
 
 class TitleSerializer(serializers.ModelSerializer):
-    rating = serializers.SerializerMethodField('get_rating')
+    rating = serializers.IntegerField(required=False, read_only=True)
     genre = CustomField(
         many=True,
         required=False,
@@ -48,9 +47,6 @@ class TitleSerializer(serializers.ModelSerializer):
     year = serializers.IntegerField(
         required=False, validators=[year_validator]
     )
-
-    def get_rating(self, obj):
-        return obj.reviews.all().aggregate(rating=Avg('score'))['rating']
 
     class Meta:
         fields = '__all__'
