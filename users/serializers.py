@@ -30,3 +30,11 @@ class UserSerializerForUsers(serializers.ModelSerializer):
             'role',
         )
         read_only_fields = ('role',)
+
+
+class UserCreateByEmailSerializer(serializers.Serializer):
+    email = serializers.EmailField(required=True)
+
+
+class UserCreateTokenSerializer(UserCreateByEmailSerializer):
+    confirmation_code = serializers.UUIDField(required=True)

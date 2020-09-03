@@ -3,11 +3,14 @@ from django.utils.translation import gettext_lazy as _
 from django.db import models
 
 
-USERS_ROLES = (
-    ('user', 'Simple user'),
-    ('moderator', 'Website moderator'),
-    ('admin', 'Administrator'),
-)
+class UsersRoles(models.TextChoices):
+    """
+    User enum. Used as separate class, `cause it used in fixtures factories
+    """
+
+    USER = 'user', _('Simple user')
+    MODERATOR = 'moderator', _('Website moderator')
+    ADMIN = 'admin', _('Administrator')
 
 
 class User(AbstractUser):
@@ -17,8 +20,10 @@ class User(AbstractUser):
 
     email = models.EmailField(_('email address'), unique=True)
     bio = models.TextField(null=True, blank=True)
-    role = models.CharField(max_length=10, choices=USERS_ROLES, default='user')
-    confirmation_code = models.CharField(max_length=20, null=True, blank=True)
+    role = models.CharField(
+        max_length=100, choices=UsersRoles.choices, default=UsersRoles.USER
+    )
+    confirmation_code = models.CharField(max_length=50, null=True, blank=True)
 
     @property
     def is_moderator(self):

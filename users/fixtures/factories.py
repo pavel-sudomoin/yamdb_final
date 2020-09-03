@@ -1,8 +1,7 @@
 import factory
 from django.contrib.auth import get_user_model
-import random
 
-from users.models import USERS_ROLES
+from users.models import UsersRoles
 
 User = get_user_model()
 factory.Faker._DEFAULT_LOCALE = 'ru_RU'
@@ -17,4 +16,4 @@ class UserFactory(factory.django.DjangoModelFactory):
     last_name = factory.Faker('last_name')
     email = factory.Faker('email')
     bio = factory.Faker('text')
-    role = factory.Iterator(dict(USERS_ROLES).keys())
+    role = factory.Iterator(UsersRoles.values)

@@ -1,8 +1,7 @@
 from rest_framework.views import APIView
-from rest_framework import viewsets, filters
+from rest_framework import viewsets
 from rest_framework.response import Response
 from rest_framework import permissions, status, generics
-from rest_framework.exceptions import ValidationError, ParseError
 from django.core.mail import send_mail
 from django.utils.translation import gettext_lazy as _
 import uuid
@@ -10,8 +9,13 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .rbac import AdminUserCanDoAnything
-from .serializers import UserSerializerForAdmin, UserSerializerForUsers
+from .permissions import AdminUserCanDoAnything
+from .serializers import (
+    UserSerializerForAdmin,
+    UserSerializerForUsers,
+    UserCreateByEmailSerializer,
+    UserCreateTokenSerializer,
+)
 
 User = get_user_model()
 
@@ -36,25 +40,30 @@ class UsersView(viewsets.ModelViewSet):
 
 
 class CreateUserView(APIView):
+    """
+    Create user and confirmation_code if email is new and send email
+    """
+
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
-        email = request.data.get('email')
-        if email is None:
-            raise ValidationError(_('Email is empty'))
-        email = email.strip()
+        serializer = UserCreateByEmailSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
         confirmation_code = str(uuid.uuid4())
         user, is_created = User.objects.get_or_create(
-            email=email, defaults={'confirmation_code': confirmation_code}
+            email=serializer.validated_data.get('email'),
+            username=serializer.validated_data.get('email'),
+            defaults={'confirmation_code': confirmation_code},
         )
-
-        send_mail(
-            _('Account created/updated'),
-            _('Now you can login with confirmation_code:') + confirmation_code,
-            user.email,
-            ['email'],
-            fail_silently=True,
-        )
+        if is_created:
+            send_mail(
+                _('Account created/updated'),
+                _('Now you can login with confirmation_code:')
+                + user.confirmation_code,
+                user.email,
+                ['email'],
+                fail_silently=True,
+            )
         return Response(status=status.HTTP_202_ACCEPTED)
 
 
@@ -62,13 +71,9 @@ class GenerateTokenByConfCodeAndEmail(APIView):
     permission_classes = (permissions.AllowAny,)
 
     def post(self, request):
-        email = request.data.get('email')
-        confirmation_code = request.data.get('confirmation_code')
-        if email is None or confirmation_code is None:
-            raise ParseError(_('Not all fields are set'))
-        user = get_object_or_404(
-            User, email=email, confirmation_code=confirmation_code
-        )
+        serializer = UserCreateTokenSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        user = get_object_or_404(User, **serializer.validated_data)
         refresh = RefreshToken.for_user(user)
         return Response(
             {'token': str(refresh.access_token)}, status=status.HTTP_200_OK
