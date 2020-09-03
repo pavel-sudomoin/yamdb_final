@@ -22,7 +22,7 @@ class Category(models.Model):
     class Meta:
         verbose_name = 'Category'
         verbose_name_plural = 'Categories'
-        ordering = ['name']
+        ordering = ('name',)
 
 
 class Genre(models.Model):
@@ -45,7 +45,7 @@ class Genre(models.Model):
     class Meta:
         verbose_name = 'Genre'
         verbose_name_plural = 'Genres'
-        ordering = ['name']
+        ordering = ('name',)
 
 
 class Title(models.Model):
@@ -74,4 +74,4 @@ class Title(models.Model):
     class Meta:
         verbose_name = 'Title'
         verbose_name_plural = 'Titles'
-        ordering = ['pk']
+        ordering = ('pk',)
