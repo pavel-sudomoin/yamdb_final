@@ -1,6 +1,5 @@
+import uuid
 from django.db import models
-
-from .snippets.unique_slugify import unique_slugify
 
 
 class Category(models.Model):
@@ -16,8 +15,9 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            unique_slugify(self, self.name)
+            self.slug = uuid.uuid4()
         super(Category, self).save(*args, **kwargs)
+        self.full_clean()
 
     class Meta:
         verbose_name = 'Category'
@@ -37,8 +37,9 @@ class Genre(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            unique_slugify(self, self.name)
+            self.slug = uuid.uuid4()
         super(Genre, self).save(*args, **kwargs)
+        self.full_clean()
 
     class Meta:
         verbose_name = 'Genre'
