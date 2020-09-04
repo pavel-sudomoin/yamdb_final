@@ -10,6 +10,11 @@ class Category(models.Model):
         max_length=50, verbose_name='Category slug', unique=True
     )
 
+    class Meta:
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+        ordering = ('name',)
+
     def __str__(self):
         return self.name
 
@@ -18,11 +23,6 @@ class Category(models.Model):
             self.slug = uuid.uuid4()
         super(Category, self).save(*args, **kwargs)
         self.full_clean()
-
-    class Meta:
-        verbose_name = 'Category'
-        verbose_name_plural = 'Categories'
-        ordering = ('name',)
 
 
 class Genre(models.Model):
@@ -33,6 +33,11 @@ class Genre(models.Model):
         max_length=50, verbose_name='Genre slug', unique=True
     )
 
+    class Meta:
+        verbose_name = 'Genre'
+        verbose_name_plural = 'Genres'
+        ordering = ('name',)
+
     def __str__(self):
         return self.name
 
@@ -41,11 +46,6 @@ class Genre(models.Model):
             self.slug = uuid.uuid4()
         super(Genre, self).save(*args, **kwargs)
         self.full_clean()
-
-    class Meta:
-        verbose_name = 'Genre'
-        verbose_name_plural = 'Genres'
-        ordering = ('name',)
 
 
 class Title(models.Model):
@@ -68,10 +68,10 @@ class Title(models.Model):
         null=True,
     )
 
-    def __str__(self):
-        return self.name
-
     class Meta:
         verbose_name = 'Title'
         verbose_name_plural = 'Titles'
         ordering = ('pk',)
+
+    def __str__(self):
+        return self.name
