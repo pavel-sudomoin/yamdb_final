@@ -4,10 +4,10 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(
-        max_length=200, verbose_name='category_name', unique=True
+        max_length=200, verbose_name='Category name', unique=True
     )
     slug = models.SlugField(
-        max_length=50, verbose_name='category_slug', unique=True
+        max_length=50, verbose_name='Category slug', unique=True
     )
 
     def __str__(self):
@@ -27,10 +27,10 @@ class Category(models.Model):
 
 class Genre(models.Model):
     name = models.CharField(
-        max_length=200, verbose_name='genre_name', unique=True
+        max_length=200, verbose_name='Genre name', unique=True
     )
     slug = models.SlugField(
-        max_length=50, verbose_name='genre_slug', unique=True
+        max_length=50, verbose_name='Genre slug', unique=True
     )
 
     def __str__(self):
@@ -49,21 +49,21 @@ class Genre(models.Model):
 
 
 class Title(models.Model):
-    name = models.CharField(max_length=200, verbose_name='title_name')
+    name = models.CharField(max_length=200, verbose_name='Title name')
     year = models.IntegerField(
-        verbose_name='title_year', blank=True, null=True
+        verbose_name='Title year', blank=True, null=True
     )
     description = models.CharField(
-        max_length=200, verbose_name='title_description', blank=True, null=True
+        max_length=200, verbose_name='Title description', blank=True, null=True
     )
     genre = models.ManyToManyField(
-        Genre, related_name='titles', verbose_name='title_genre', blank=True
+        Genre, related_name='titles', verbose_name='Title genre', blank=True
     )
     category = models.ForeignKey(
         Category,
         on_delete=models.SET_NULL,
         related_name='titles',
-        verbose_name='title_category',
+        verbose_name='Title category',
         blank=True,
         null=True,
     )
