@@ -20,7 +20,9 @@ class Command(BaseCommand):
         review_data = [
             {
                 'filename': 'review.csv',
-                'fields': ['id', 'title_id', 'text', 'author_id', 'score', 'pub_date'],
+                'fields': [
+                    'id', 'title_id', 'text', 'author_id', 'score', 'pub_date'
+                ],
                 'serializer_class': ReviewSerializer,
             },
             {
@@ -57,3 +59,4 @@ class Command(BaseCommand):
                         print(serializer.errors)
             print('end')
             print('----------------')
+

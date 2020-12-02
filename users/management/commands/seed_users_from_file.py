@@ -32,3 +32,4 @@ class Command(BaseCommand):
                     User.objects.create(**dictionary)
                 except ValueError:
                     pass
+
