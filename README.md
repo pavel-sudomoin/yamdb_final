@@ -28,14 +28,14 @@
 
 По умолчанию файл имеет следующую структуру:
 
-<pre><code>
+```
 DB_ENGINE=django.db.backends.postgresql # указываем, что работаем с postgresql
 DB_NAME=postgres # имя базы данных
-POSTGRES_USER=postgres # логин для подключения к базе данных
-POSTGRES_PASSWORD=postgres # пароль для подключения к БД (рекомендуется установить свой)
 DB_HOST=db # название сервиса (контейнера)
 DB_PORT=5432 # порт для подключения к БД
-</code></pre>
+POSTGRES_USER=postgres # логин для подключения к базе данных
+POSTGRES_PASSWORD=postgres # пароль для подключения к БД (рекомендуется установить свой)
+```
 
 ### Сборка и запуск контейнеров
 
