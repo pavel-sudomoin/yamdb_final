@@ -15,8 +15,8 @@ jobs:
           username: ${{ secrets.USER }}
           privateKey: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          local: docker-compose.yaml
-          remote: /home/praktikum-python/yamdb_final/docker-compose.yaml
+          local: docker-compose.yaml, .env
+          remote: /home/praktikum-python/yamdb_final/docker-compose.yaml, /home/praktikum-python/yamdb_final/.env
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
