@@ -1,5 +1,7 @@
 # Спринт 18 для Yandex.Praktikum - запуск docker-контейнеров с проектом YaMDb
 
+![yamdb_final_workflow](https://github.com/pavel-sudomoin/yamdb_final/workflows/yamdb_final_workflow/badge.svg)
+
 ## Описание проекта
 
 Проект представляет собой REST API для сервиса YaMDb - базы отзывов о фильмах, книгах и музыке
