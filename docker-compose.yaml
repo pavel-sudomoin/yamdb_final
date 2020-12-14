@@ -27,6 +27,7 @@ services:
       - ./.env
   nginx:
     image: nginx
+    restart: unless-stopped
     volumes:
       - static_volume:/code/static/
       - media_volume:/code/media/
