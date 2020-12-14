@@ -9,14 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@master
       - name: copy files to server
-        uses: garygrossgarten/github-action-scp@release
+        uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
-          privateKey: ${{ secrets.SSH_KEY }}
+          key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          local: docker-compose.yaml
-          remote: /home/praktikum-python/yamdb_final/docker-compose.yaml
+          source: 'docker-compose.yaml, nginx.conf'
+          target: '/home/praktikum-python/yamdb_final/'
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
