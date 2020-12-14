@@ -2,6 +2,8 @@ version: '3.8'
 
 volumes:
   postgres_data:
+  static_volume:
+  media_volume:
 
 services:
   db:
@@ -11,12 +13,25 @@ services:
     env_file:
       - ./.env
   web:
-    build: .
+    image: sudomoinpavel/yamdb_final:latest
     restart: always
     command: gunicorn api_yamdb.wsgi:application --bind 0.0.0.0:8000
+    volumes:
+      - static_volume:/code/static/
+      - media_volume:/code/media/
     ports:
       - "8000:8000"
     depends_on:
       - db
     env_file:
       - ./.env
+  nginx:
+    image: nginx
+    volumes:
+      - static_volume:/code/static/
+      - media_volume:/code/media/
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+    depends_on:
+      -  web
