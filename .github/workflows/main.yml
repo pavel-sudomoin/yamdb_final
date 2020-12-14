@@ -8,7 +8,7 @@ jobs:
     #needs: build_and_push_to_docker_hub
     steps:
       - name: copy files to server
-        uses: appleboy/ssh-action@master
+        uses: garygrossgarten/github-action-scp@release
         with:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.USER }}
