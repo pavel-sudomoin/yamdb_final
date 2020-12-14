@@ -14,8 +14,8 @@ jobs:
           username: ${{ secrets.USER }}
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
-          source: 'docker-compose.yaml, nginx.conf'
-          target: '/home/praktikum-python/yamdb_final'
+          local: docker-compose.yaml
+          remote: /home/praktikum-python/yamdb_final/docker-compose.yaml
       - name: executing remote ssh commands to deploy
         uses: appleboy/ssh-action@master
         with:
