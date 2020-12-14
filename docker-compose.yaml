@@ -15,12 +15,12 @@ services:
   web:
     image: sudomoinpavel/yamdb_final:latest
     restart: always
-    command: gunicorn api_yamdb.wsgi:application --bind 0.0.0.0:8000
+    command: gunicorn api_yamdb.wsgi:application --bind 0.0.0.0:8020
     volumes:
       - static_volume:/code/static/
       - media_volume:/code/media/
     ports:
-      - "8000:8000"
+      - "8020:8020"
     depends_on:
       - db
     env_file:
