@@ -32,7 +32,7 @@ services:
       - static_volume:/code/static/
       - media_volume:/code/media/
       - ./nginx.conf:/etc/nginx/nginx.conf
-    ports:
-      - "80:80"
+    expose:
+      - '80'
     depends_on:
       -  web
