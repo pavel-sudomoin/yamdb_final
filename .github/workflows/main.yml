@@ -53,6 +53,7 @@ jobs:
           key: ${{ secrets.SSH_KEY }}
           passphrase: ${{ secrets.PASSPHRASE }}
           script: |
+            cd ./code
             sudo docker pull sudomoinpavel/yamdb_final
             sudo docker-compose up --force-recreate -d web
 
