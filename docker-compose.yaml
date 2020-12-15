@@ -15,7 +15,7 @@ services:
   web:
     image: sudomoinpavel/yamdb_final:latest
     restart: always
-    command: bash -c "python manage.py migrate --noinput && python manage.py collectstatic --noinput && gunicorn api_yamdb.wsgi:application --bind 0.0.0.0:8020"
+    command: bash -c "python manage.py migrate --noinput && python manage.py collectstatic && python manage.py loaddata fixtures.json && --noinput && gunicorn api_yamdb.wsgi:application --bind 0.0.0.0:8020"
     volumes:
       - static_volume:/code/static
       - media_volume:/code/media
