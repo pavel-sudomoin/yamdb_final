@@ -16,7 +16,7 @@ class ReviewSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         if Review.objects.filter(
-            author=validated_data.get('author'), 
+            author=validated_data.get('author'),
             title=validated_data.get('title')
         ).exists():
             raise serializers.ValidationError(
