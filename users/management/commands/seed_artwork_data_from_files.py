@@ -55,4 +55,3 @@ class Command(BaseCommand):
                         print(serializer.errors)
             print('end')
             print('----------------')
-
