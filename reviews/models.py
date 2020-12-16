@@ -49,4 +49,7 @@ class Comment(models.Model):
         ordering = ('-pub_date',)
 
     def __str__(self):
-        return f'{self.review} - {self.author} - {self.pub_date.strftime("%c")}'
+        return (
+            f'{self.review} - {self.author} - '
+            f'{self.pub_date.strftime("%c")}'
+        )
