@@ -23,8 +23,8 @@ services:
     volumes:
       - static_volume:/code/static
       - media_volume:/code/media
-    ports:
-      - "8020:8020"
+    expose:
+      - 8020
     depends_on:
       - db
     env_file:
