@@ -30,7 +30,7 @@ services:
     env_file:
       - ./.env
   nginx:
-    image: nginx
+    image: nginx:1.19.5
     restart: unless-stopped
     volumes:
       - static_volume:/code/static
